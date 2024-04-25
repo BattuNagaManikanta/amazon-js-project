@@ -26,3 +26,15 @@ export function addToCart(productId){
       })
     }
   }
+
+  export function removeFromCart(productId){
+    let newCart=[];
+    console.log(productId);
+    cart.forEach((cartItem)=>{
+        if(productId != cartItem.productId){
+            newCart.push(cartItem);
+        }
+    })
+    console.log(newCart)
+    cart=newCart;
+  }
