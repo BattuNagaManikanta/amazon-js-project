@@ -14,12 +14,26 @@ cart.forEach((cartItem)=>{
         if(product.id === productId){
             matchingProduct=product;
         }
-    })
+      })
+      const deliveryOptionId=cartItem.deliveryOptionId;
+      let deliveryOption
+      deliveryOptions.forEach((option)=>{
+        if(option.id == deliveryOptionId){
+          deliveryOption=option;
+          
+        }
+      })
+      const today= dayJS();
+      const deliveryDate=today.add(deliveryOption.deliveryDays,'days');
+      const dateString=deliveryDate.format(
+        'dddd, MMMM D'
+      )
+   
   
     cartSummaryHTML+=`
     <div class="cart-item-container js-cart-item-container-${matchingProduct.id}">
             <div class="delivery-date">
-              Delivery date: Tuesday, June 21
+              Delivery date: ${dateString}
             </div>
 
             <div class="cart-item-details-grid">
@@ -65,14 +79,11 @@ function deliveryOptionsHTML(cartItem,matchingProduct){
   
   let html='';
   deliveryOptions.forEach((deliveryOption)=>{
-    console.log(deliveryOption)
     const today= dayJS();
     const deliveryDate=today.add(deliveryOption.deliveryDays,'days');
     const dateString=deliveryDate.format(
       'dddd, MMMM D'
     )
-    console.log(deliveryOption.id);
-    console.log(cartItem);
     const isChecked=deliveryOption.id === cartItem.deliveryOptionId;
     console.log(isChecked);
     html+=`
